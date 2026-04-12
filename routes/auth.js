@@ -12,7 +12,10 @@ router.post("/register", (req, res) => {
   const hashedPassword = bcrypt.hashSync(password, 10);
   const sql = "INSERT INTO employers (name, email, password) VALUES (?, ?, ?)";
   db.query(sql, [name, email, hashedPassword], (err, result) => {
-    if (err) return res.status(500).json({ error: err.message });
+    if (err) {
+  console.error("Register error:", err.message);
+  return res.status(500).json({ error: err.message });
+  }
     res.json({ message: "Employer registered successfully!" });
   });
 });
