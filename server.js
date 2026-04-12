@@ -5,7 +5,11 @@ const authRoutes = require("./routes/auth");
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: "https://sajobs-frontend.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "authorization"]
+}));
 app.use(express.json());
 
 app.use("/api/jobs", jobRoutes);
