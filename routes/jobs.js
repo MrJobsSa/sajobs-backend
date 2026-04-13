@@ -38,7 +38,7 @@ router.get("/", (req, res) => {
 
 // Post a new job
 router.post("/", verifyToken, (req, res) => {
-  const { title, company, location, description, salary, type } = req.body;
+  const { title, company, location, description, salary, type, apply_link } = req.body;
 const employer_id = req.employer ? req.employer.id : null;
 const sql = "INSERT INTO jobs (title, company, location, description, salary, type, employer_id, apply_link) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 db.query(sql, [title, company, location, description, salary, type, employer_id, apply_link], (err, result) => {
