@@ -40,8 +40,8 @@ router.get("/", (req, res) => {
 router.post("/", verifyToken, (req, res) => {
   const { title, company, location, description, salary, type } = req.body;
 const employer_id = req.employer ? req.employer.id : null;
-const sql = "INSERT INTO jobs (title, company, location, description, salary, type, employer_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
-db.query(sql, [title, company, location, description, salary, type, employer_id], (err, result) => {
+const sql = "INSERT INTO jobs (title, company, location, description, salary, type, employer_id, apply_link) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+db.query(sql, [title, company, location, description, salary, type, employer_id, apply_link], (err, result) => {
     if (err) return res.status(500).json({ error: err.message });
     // Send confirmation email
 transporter.sendMail({
@@ -78,7 +78,7 @@ res.json({ message: "Job posted successfully!", id: result.insertId });
 // Edit a job
 router.put("/:id", verifyToken, (req, res) => {
   const { id } = req.params;
-  const { title, company, location, description } = req.body;
+  const { title, company, location, description, salary, type, apply_link } = req.body;
   const sql = "UPDATE jobs SET title = ?, company = ?, location = ?, description = ? WHERE id = ?";
   db.query(sql, [title, company, location, description, id], (err, result) => {
     if (err) return res.status(500).json({ error: err.message });
