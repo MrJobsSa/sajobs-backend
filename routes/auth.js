@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const SECRET = "jobsite_secret_key";
-const EMPLOYER_CODE = "SAJOBS2026";
+const EMPLOYER_CODE = "1111$aJob$ToMzan$i";
 
 // Register
 router.post("/register", (req, res) => {
