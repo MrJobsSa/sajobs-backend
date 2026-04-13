@@ -5,10 +5,14 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const SECRET = "jobsite_secret_key";
+const EMPLOYER_CODE = "SAJOBS2026";
 
 // Register
 router.post("/register", (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, employerCode } = req.body;
+if (employerCode !== EMPLOYER_CODE) {
+  return res.status(401).json({ error: "Invalid employer code. Please contact SA Jobs to get your code." });
+}
   const hashedPassword = bcrypt.hashSync(password, 10);
   const sql = "INSERT INTO employers (name, email, password) VALUES (?, ?, ?)";
   db.query(sql, [name, email, hashedPassword], (err, result) => {
